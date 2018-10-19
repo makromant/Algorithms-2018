@@ -1,9 +1,13 @@
 package lesson1
 
+import org.junit.jupiter.api.assertThrows
 import java.io.BufferedWriter
 import java.io.File
+import java.io.FileNotFoundException
 import java.util.*
 import kotlin.math.abs
+import kotlin.test.assertFails
+import kotlin.test.assertFailsWith
 
 abstract class AbstractTaskTests : AbstractFileTests() {
 
@@ -39,6 +43,27 @@ abstract class AbstractTaskTests : AbstractFileTests() {
         } finally {
             File("temp.txt").delete()
         }
+
+        //Mine tests
+        try {
+            assertThrows<FileNotFoundException> { sortTimes("FileNotFound", "temp.txt") }
+        } finally {
+            File("temp.txt").delete()
+        }
+        try {
+            assertThrows<NumberFormatException> { sortTimes("input/time_in4.txt", "temp.txt") }
+        } finally {
+            File("temp.txt").delete()
+        }
+        try {
+            sortTimes("input/empty.txt", "temp.txt")
+            assertFileContent("temp.txt",
+                    """
+                """.trimIndent()
+            )
+        } finally {
+            File("temp.txt").delete()
+        }
     }
 
     protected fun sortAddresses(sortAddresses: (String, String) -> Unit) {
@@ -50,6 +75,15 @@ abstract class AbstractTaskTests : AbstractFileTests() {
                     Железнодорожная 3 - Петров Иван
                     Железнодорожная 7 - Иванов Алексей, Иванов Михаил
                     Садовая 5 - Сидоров Петр, Сидорова Мария
+                """.trimIndent()
+            )
+        } finally {
+            File("temp.txt").delete()
+        }
+        try {
+            sortAddresses("input/empty.txt", "temp.txt")
+            assertFileContent("temp.txt",
+                    """
                 """.trimIndent()
             )
         } finally {
@@ -98,7 +132,20 @@ abstract class AbstractTaskTests : AbstractFileTests() {
         } finally {
             File("temp.txt").delete()
         }
-
+        try {
+            assertThrows<Throwable>("Not in range") { sortTemperatures("input/temp_in2.txt", "temp.txt") }
+        } finally {
+            File("temp.txt").delete()
+        }
+        try {
+            sortTemperatures("input/empty.txt", "temp.txt")
+            assertFileContent("temp.txt",
+                    """
+                """.trimIndent()
+            )
+        } finally {
+            File("temp.txt").delete()
+        }
         fun testGeneratedTemperatures(size: Int) {
             try {
                 generateTemperatures(size)
@@ -150,7 +197,16 @@ abstract class AbstractTaskTests : AbstractFileTests() {
         } finally {
             File("temp.txt").delete()
         }
-
+        try {
+            assertThrows<java.lang.NumberFormatException> { sortSequence("input/seq_in3.txt", "temp.txt") }
+        } finally {
+            File("temp.txt").delete()
+        }
+        try {
+            assertThrows<kotlin.KotlinNullPointerException> { sortSequence("input/empty.txt", "temp.txt") }
+        } finally {
+            File("temp.txt").delete()
+        }
         fun BufferedWriter.writeNumbers(numbers: List<Int>) {
             for (n in numbers) {
                 write("$n")

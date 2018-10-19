@@ -140,10 +140,11 @@ fun sortTemperatures(inputName: String, outputName: String) {
      * labor intensity : O(N*logN) or O(N^2)
      * resource intensity : O(N)
      */
-    val list = File(inputName).readLines().map { it -> it.toDouble() }.toDoubleArray()
+    val list = File(inputName).readLines().map { it.toDouble() }.toDoubleArray()
     mergeDoubleSort(list, 0, list.size)
     File(outputName).writer().run {
         list.forEach { it ->
+            if (it !in -273.0..500.0) throw Throwable("Not in range")
             write("$it\n")
         }
         close()
@@ -220,7 +221,7 @@ fun sortSequence(inputName: String, outputName: String) {
             min = index
     }
     File(outputName).writer().run {
-        list.forEach{it ->
+        list.forEach { it ->
             if (it != min)
                 write("$it\n")
         }
