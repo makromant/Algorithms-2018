@@ -1,12 +1,13 @@
 # Created by .ignore support plugin (hsz.mobi)
 
-
+.gragle
 ./gradle
 .idea/*.xml
 .idea/copyright
 .idea/libraries
 .idea/shelf
 .idea/.name
+.idea
 target
 out
 build

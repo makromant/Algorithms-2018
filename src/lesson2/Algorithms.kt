@@ -27,6 +27,10 @@ package lesson2
  * В случае обнаружения неверного формата файла бросить любое исключение.
  */
 fun optimizeBuyAndSell(inputName: String): Pair<Int, Int> {
+    /**
+     * labor intensity : ???
+     * resource intensity : ???
+     */
     TODO()
 }
 
@@ -77,6 +81,10 @@ fun optimizeBuyAndSell(inputName: String): Pair<Int, Int> {
  * Х х Х
  */
 fun josephTask(menNumber: Int, choiceInterval: Int): Int {
+    /**
+     * labor intensity : ???
+     * resource intensity : ???
+     */
     TODO()
 }
 
@@ -92,6 +100,10 @@ fun josephTask(menNumber: Int, choiceInterval: Int): Int {
  * вернуть ту из них, которая встречается раньше в строке first.
  */
 fun longestCommonSubstring(first: String, second: String): String {
+    /**
+     * labor intensity : ???
+     * resource intensity : ???
+     */
     TODO()
 }
 
@@ -106,6 +118,10 @@ fun longestCommonSubstring(first: String, second: String): String {
  * Единица простым числом не считается.
  */
 fun calcPrimesNumber(limit: Int): Int {
+    /**
+     * labor intensity : ???
+     * resource intensity : ???
+     */
     TODO()
 }
 
@@ -136,5 +152,9 @@ fun calcPrimesNumber(limit: Int): Int {
  * Остальные символы ни в файле, ни в словах не допускаются.
  */
 fun baldaSearcher(inputName: String, words: Set<String>): Set<String> {
+    /**
+     * labor intensity : ???
+     * resource intensity : ???
+     */
     TODO()
 }

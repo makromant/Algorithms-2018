@@ -42,7 +42,6 @@ class TaskTestsKotlin : AbstractTaskTests() {
             mergeArrays(first, second)
             assertArrayEquals(expectedResult, second)
         }
-
         run {
             val (first, second, expectedResult) = generateArrays(500000, 500000)
             mergeArrays(first, second)

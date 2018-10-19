@@ -55,6 +55,10 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
      * Средняя
      */
     override fun remove(element: T): Boolean {
+        /**
+         * labor intensity : ???
+         * resource intensity : ???
+         */
         TODO()
     }
 
@@ -84,6 +88,10 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
          * Средняя
          */
         private fun findNext(): Node<T>? {
+            /**
+             * labor intensity : ???
+             * resource intensity : ???
+             */
             TODO()
         }
 
@@ -99,6 +107,10 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
          * Сложная
          */
         override fun remove() {
+            /**
+             * labor intensity : ???
+             * resource intensity : ???
+             */
             TODO()
         }
     }
@@ -112,6 +124,10 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
      * Очень сложная
      */
     override fun subSet(fromElement: T, toElement: T): SortedSet<T> {
+        /**
+         * labor intensity : ???
+         * resource intensity : ???
+         */
         TODO()
     }
 
@@ -120,6 +136,10 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
      * Сложная
      */
     override fun headSet(toElement: T): SortedSet<T> {
+        /**
+         * labor intensity : ???
+         * resource intensity : ???
+         */
         TODO()
     }
 
@@ -128,6 +148,10 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
      * Сложная
      */
     override fun tailSet(fromElement: T): SortedSet<T> {
+        /**
+         * labor intensity : ???
+         * resource intensity : ???
+         */
         TODO()
     }
 

@@ -2,6 +2,10 @@
 
 package lesson1
 
+import java.io.File
+import java.util.*
+import kotlin.collections.ArrayList
+
 /**
  * Сортировка времён
  *
@@ -31,7 +35,25 @@ package lesson1
  * В случае обнаружения неверного формата файла бросить любое исключение.
  */
 fun sortTimes(inputName: String, outputName: String) {
-    TODO()
+    /**
+     * labor intensity : O(N^2)
+     * resource intensity : O(N)
+     */
+    val list = File(inputName).readLines()
+            .asSequence()
+            .map { it -> it.split(":") }
+            .map { it ->
+                val (h, m, s) = it
+                h.toInt() * 3600 + m.toInt() * 60 + s.toInt()
+            }
+            .toList().toIntArray()
+    insertionSort(list)
+    File(outputName).writer().run {
+        list.forEach { it ->
+            write("%02d:%02d:%02d\n".format(it / 3600, (it / 60) % 60, it % 60))
+        }
+        close()
+    }
 }
 
 /**
@@ -61,7 +83,26 @@ fun sortTimes(inputName: String, outputName: String) {
  * В случае обнаружения неверного формата файла бросить любое исключение.
  */
 fun sortAddresses(inputName: String, outputName: String) {
-    TODO()
+    /**
+     * labor intensity : O(N)
+     * resource intensity : O(n*m)?
+     */
+    val adrMap: TreeMap<String, ArrayList<String>> = TreeMap()
+    File(inputName).readLines().forEach { it ->
+        var (name, adr) = it.split("-")
+        name = name.trim()
+        adr = adr.trim()
+        if (adrMap.containsKey(adr))
+            adrMap[adr]?.add(name)
+        else
+            adrMap[adr] = arrayListOf(name)
+    }
+    File(outputName).writer().run {
+        adrMap.forEach { it ->
+            write("${it.key} - ${it.value.toString().substring(1, it.value.toString().length - 1)}\n")
+        }
+        close()
+    }
 }
 
 /**
@@ -95,7 +136,41 @@ fun sortAddresses(inputName: String, outputName: String) {
  * 121.3
  */
 fun sortTemperatures(inputName: String, outputName: String) {
-    TODO()
+    /**
+     * labor intensity : O(N*logN) or O(N^2)
+     * resource intensity : O(N)
+     */
+    val list = File(inputName).readLines().map { it -> it.toDouble() }.toDoubleArray()
+    mergeDoubleSort(list, 0, list.size)
+    File(outputName).writer().run {
+        list.forEach { it ->
+            write("$it\n")
+        }
+        close()
+    }
+}
+
+//merge sort for DoubleArray
+private fun merge(elements: DoubleArray, begin: Int, middle: Int, end: Int) {
+    val left = Arrays.copyOfRange(elements, begin, middle)
+    val right = Arrays.copyOfRange(elements, middle, end)
+    var li = 0
+    var ri = 0
+    for (i in begin until end) {
+        if (li < left.size && (ri == right.size || left[li] <= right[ri])) {
+            elements[i] = left[li++]
+        } else {
+            elements[i] = right[ri++]
+        }
+    }
+}
+
+private fun mergeDoubleSort(elements: DoubleArray, begin: Int, end: Int) {
+    if (end - begin <= 1) return
+    val middle = (begin + end) / 2
+    mergeDoubleSort(elements, begin, middle)
+    mergeDoubleSort(elements, middle, end)
+    merge(elements, begin, middle, end)
 }
 
 /**
@@ -128,7 +203,30 @@ fun sortTemperatures(inputName: String, outputName: String) {
  * 2
  */
 fun sortSequence(inputName: String, outputName: String) {
-    TODO()
+    /**
+     * labor intensity : O(N)
+     * resource intensity : O(n+m)
+     */
+    //array counts of every number
+    val list = File(inputName).readLines().map { it.toInt() }
+    val countMax = IntArray(list.max()!! + 1)
+    list.forEach { it ->
+        countMax[it]++
+    }
+    val max = countMax.max()
+    var min = Int.MAX_VALUE
+    countMax.forEachIndexed { index, it ->
+        if (it == max && min > index)
+            min = index
+    }
+    File(outputName).writer().run {
+        list.forEach{it ->
+            if (it != min)
+                write("$it\n")
+        }
+        write("$min\n".repeat(max!!))
+        close()
+    }
 }
 
 /**
@@ -146,6 +244,27 @@ fun sortSequence(inputName: String, outputName: String) {
  * Результат: second = [1 3 4 9 9 13 15 20 23 28]
  */
 fun <T : Comparable<T>> mergeArrays(first: Array<T>, second: Array<T?>) {
-    TODO()
+    /**
+     * labor intensity : O(N)
+     * resource intensity : O(n*m)
+     */
+    var fIndex = 0
+    var sIndex = first.size
+    var index = 0
+    while (fIndex < first.size && sIndex < second.size) {
+        if (first[fIndex] < second[sIndex]!!) {
+            second[index++] = first[fIndex++]
+        } else {
+            second[index++] = second[sIndex++]
+        }
+    }
+    if (fIndex < first.size) {
+        while (fIndex < first.size)
+            second[index++] = first[fIndex++]
+    } else if (sIndex < second.size) {
+        while (sIndex < second.size)
+            second[index++] = second[sIndex++]
+    }
 }
+
 

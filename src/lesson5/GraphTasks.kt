@@ -29,6 +29,10 @@ package lesson5
  * связного графа ровно по одному разу
  */
 fun Graph.findEulerLoop(): List<Graph.Edge> {
+    /**
+     * labor intensity : ???
+     * resource intensity : ???
+     */
     TODO()
 }
 
@@ -61,6 +65,10 @@ fun Graph.findEulerLoop(): List<Graph.Edge> {
  * J ------------ K
  */
 fun Graph.minimumSpanningTree(): Graph {
+    /**
+     * labor intensity : ???
+     * resource intensity : ???
+     */
     TODO()
 }
 
@@ -89,6 +97,10 @@ fun Graph.minimumSpanningTree(): Graph {
  * Эта задача может быть зачтена за пятый и шестой урок одновременно
  */
 fun Graph.largestIndependentVertexSet(): Set<Graph.Vertex> {
+    /**
+     * labor intensity : ???
+     * resource intensity : ???
+     */
     TODO()
 }
 
@@ -113,5 +125,9 @@ fun Graph.largestIndependentVertexSet(): Set<Graph.Vertex> {
  * Ответ: A, E, J, K, D, C, H, G, B, F, I
  */
 fun Graph.longestSimplePath(): Path {
+    /**
+     * labor intensity : ???
+     * resource intensity : ???
+     */
     TODO()
 }
