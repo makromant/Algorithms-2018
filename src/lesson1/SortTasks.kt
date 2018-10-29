@@ -85,7 +85,7 @@ fun sortTimes(inputName: String, outputName: String) {
 fun sortAddresses(inputName: String, outputName: String) {
     /**
      * labor intensity : O(N)
-     * resource intensity : O(n*m)?
+     * resource intensity : O(n*m) n = adrMap.keys.size,  m = adrMap.values.size
      */
     val adrMap: TreeMap<String, ArrayList<String>> = TreeMap()
     File(inputName).readLines().forEach { it ->
@@ -137,7 +137,7 @@ fun sortAddresses(inputName: String, outputName: String) {
  */
 fun sortTemperatures(inputName: String, outputName: String) {
     /**
-     * labor intensity : O(N*logN) or O(N^2)
+     * labor intensity : O(N*logN)
      * resource intensity : O(N)
      */
     val list = File(inputName).readLines().map { it.toDouble() }.toDoubleArray()
@@ -206,7 +206,7 @@ private fun mergeDoubleSort(elements: DoubleArray, begin: Int, end: Int) {
 fun sortSequence(inputName: String, outputName: String) {
     /**
      * labor intensity : O(N)
-     * resource intensity : O(n+m)
+     * resource intensity : O(n+m) n = countMax.size, m = list.size
      */
     //array counts of every number
     val list = File(inputName).readLines().map { it.toInt() }
@@ -247,7 +247,7 @@ fun sortSequence(inputName: String, outputName: String) {
 fun <T : Comparable<T>> mergeArrays(first: Array<T>, second: Array<T?>) {
     /**
      * labor intensity : O(N)
-     * resource intensity : O(n*m)
+     * resource intensity : O(N)
      */
     var fIndex = 0
     var sIndex = first.size

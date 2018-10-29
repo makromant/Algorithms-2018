@@ -43,6 +43,7 @@ abstract class AbstractAlgorithmsTests {
     }
 
     fun optimizeBuyAndSell(optimizeBuyAndSell: (String) -> Pair<Int, Int>) {
+        assertEquals(2 to 4, lesson2.optimizeBuyAndSell("input/buysell_in4.txt"))
         assertEquals(3 to 4, optimizeBuyAndSell("input/buysell_in1.txt"))
         assertEquals(8 to 12, optimizeBuyAndSell("input/buysell_in2.txt"))
         assertEquals(3 to 4, optimizeBuyAndSell("input/buysell_in3.txt"))
@@ -61,6 +62,15 @@ abstract class AbstractAlgorithmsTests {
     }
 
     fun josephTask(josephTask: (Int, Int) -> Int) {
+        assertEquals(8, josephTask(8, 1))
+        assertEquals(1, josephTask(8, 2))
+        assertEquals(7, josephTask(8, 3))
+        assertEquals(6, josephTask(8, 4))
+        assertEquals(3, josephTask(8, 5))
+        assertEquals(1, josephTask(8, 6))
+        assertEquals(4, josephTask(8, 7))
+        assertEquals(4, josephTask(8, 8))
+        assertEquals(8, josephTask(8, 9))
         assertEquals(1, josephTask(1, 1))
         assertEquals(2, josephTask(2, 1))
         assertEquals(50000000, josephTask(50000000, 1))

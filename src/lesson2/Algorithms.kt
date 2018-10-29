@@ -80,12 +80,22 @@ fun optimizeBuyAndSell(inputName: String): Pair<Int, Int> {
  * Х   Х
  * Х х Х
  */
-fun josephTask(menNumber: Int, choiceInterval: Int): Int {
-    /**
-     * labor intensity : ???
-     * resource intensity : ???
-     */
-    TODO()
+fun josephTask(menNumber: Int, choiceInterval: Int): Int = josephus(menNumber, choiceInterval, 1)
+
+/**
+ * labor intensity : O(N)? in worst situation (when not first 2 lines in josephus)
+ * resource intensity : O(N) N is menNumber
+ */
+
+fun josephus(menNumber: Int, choiceInterval: Int, start: Int): Int {
+    if (menNumber == 1 || (choiceInterval == 2 && menNumber % 2 == 1)) return 1
+    if (choiceInterval == 1) return menNumber
+    val newSp = (start + choiceInterval - 2) % menNumber + 1
+    val survivor = josephus(menNumber - 1, choiceInterval, newSp)
+    return if (survivor < newSp) {
+        survivor
+    } else
+        survivor + 1
 }
 
 /**
@@ -117,12 +127,29 @@ fun longestCommonSubstring(first: String, second: String): String {
  * Справка: простым считается число, которое делится нацело только на 1 и на себя.
  * Единица простым числом не считается.
  */
-fun calcPrimesNumber(limit: Int): Int {
-    /**
-     * labor intensity : ???
-     * resource intensity : ???
-     */
-    TODO()
+/**
+ * labor intensity : O(N logN(logN))  N is limit
+ * resource intensity : O(N) N is limit
+ */
+//решето Эратосфена
+fun calcPrimesNumber(limit: Int): Int = if (limit >= 1) isPrime(limit) else 0
+
+fun isPrime(limit: Int): Int {
+    val prime = BooleanArray(limit + 1) { true }
+    prime[0] = false
+    var index = 2
+    var index2: Int
+    while (Math.pow(index.toDouble(), 2.0) <= limit) {
+        if (prime[index]) {
+            index2 = index
+            while (index * index2 <= limit) {
+                prime[index2 * index] = false
+                index2++
+            }
+        }
+        index++
+    }
+    return prime.count { it } - 1
 }
 
 /**
