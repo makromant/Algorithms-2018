@@ -63,8 +63,8 @@ class Trie : AbstractMutableSet<String>(), MutableSet<String> {
      */
     override fun iterator(): MutableIterator<String> {
         /**
-         * labor intensity : ???
-         * resource intensity : ???
+         * auxiliary space : ???
+         * auxiliary space : ???
          */
         TODO()
     }

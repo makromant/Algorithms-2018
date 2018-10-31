@@ -36,8 +36,8 @@ import kotlin.collections.ArrayList
  */
 fun sortTimes(inputName: String, outputName: String) {
     /**
-     * labor intensity : O(N^2)
-     * resource intensity : O(N)
+     * time complexity : O(N^2)
+     * auxiliary space : O(N)
      */
     val list = File(inputName).readLines()
             .asSequence()
@@ -84,8 +84,8 @@ fun sortTimes(inputName: String, outputName: String) {
  */
 fun sortAddresses(inputName: String, outputName: String) {
     /**
-     * labor intensity : O(N)
-     * resource intensity : O(n*m) n = adrMap.keys.size,  m = adrMap.values.size
+     * time complexity : O(N)
+     * auxiliary space : O(n*m) n = adrMap.keys.size,  m = adrMap.values.size
      */
     val adrMap: TreeMap<String, ArrayList<String>> = TreeMap()
     File(inputName).readLines().forEach { it ->
@@ -137,8 +137,8 @@ fun sortAddresses(inputName: String, outputName: String) {
  */
 fun sortTemperatures(inputName: String, outputName: String) {
     /**
-     * labor intensity : O(N*logN)
-     * resource intensity : O(N)
+     * time complexity : O(N*logN)
+     * auxiliary space : O(N)
      */
     val list = File(inputName).readLines().map { it.toDouble() }.toDoubleArray()
     mergeDoubleSort(list, 0, list.size)
@@ -205,8 +205,8 @@ private fun mergeDoubleSort(elements: DoubleArray, begin: Int, end: Int) {
  */
 fun sortSequence(inputName: String, outputName: String) {
     /**
-     * labor intensity : O(N)
-     * resource intensity : O(n+m) n = countMax.size, m = list.size
+     * time complexity : O(N)
+     * auxiliary space : O(n+m) n = countMax.size, m = list.size
      */
     //array counts of every number
     val list = File(inputName).readLines().map { it.toInt() }
@@ -246,8 +246,8 @@ fun sortSequence(inputName: String, outputName: String) {
  */
 fun <T : Comparable<T>> mergeArrays(first: Array<T>, second: Array<T?>) {
     /**
-     * labor intensity : O(N)
-     * resource intensity : O(N)
+     * time complexity : O(N)
+     * auxiliary space : O(N)
      */
     var fIndex = 0
     var sIndex = first.size

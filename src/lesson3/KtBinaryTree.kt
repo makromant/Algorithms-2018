@@ -56,10 +56,70 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
      */
     override fun remove(element: T): Boolean {
         /**
-         * labor intensity : ???
-         * resource intensity : ???
+         * time complexity : O(N*logN)
+         * auxiliary space : O(N*logN)
          */
-        TODO()
+        if (find(element) == null) return false
+        var parent = root ?: return false
+        var curr = root ?: return false
+        //find current point via element and parent
+        while (curr.value != element) {
+            parent = curr
+            curr = if (curr.value > element)
+                curr.left ?: return false
+            else
+                curr.right ?: return false
+        }
+        if (curr.left == null && curr.right == null) {
+            //null both of children
+            setNode(curr, parent, null)
+        } else if (curr.left == null) {
+            //null left child
+            setNode(curr, parent, curr.right)
+        } else if (curr.right == null) {
+            //null right child
+            setNode(curr, parent, curr.left)
+        } else {
+            //not null both of children
+            var minNode = curr.right ?: return false
+            var parentMinNode = curr.right ?: return false
+            while (minNode.left != null) {
+                parentMinNode = minNode
+                val left = minNode.left ?: return false
+                minNode = left
+            }
+            when {
+                curr == root && parentMinNode == minNode -> {
+                    val rootLeft = root!!.left
+                    root = minNode
+                    minNode.left = rootLeft
+                }
+                curr == root && parentMinNode != minNode -> {
+                    parentMinNode.left = minNode.right
+                    root = minNode
+                    minNode.left = curr.left
+                    minNode.right = curr.right
+                }
+                parentMinNode == minNode -> setNode(curr, parent, minNode)
+                else -> {
+                    parentMinNode.left = minNode.right
+                    minNode.right = curr.right
+                    minNode.left = curr.left
+                    setNode(curr, parent, minNode)
+                }
+            }
+            minNode.left = curr.left
+        }
+        size--
+        return true
+    }
+
+    private fun setNode(curr: Node<T>, parent: Node<T>, set: Node<T>?) {
+        when (curr) {
+            root -> root = set
+            parent.left -> parent.left = set
+            parent.right -> parent.right = set
+        }
     }
 
     override operator fun contains(element: T): Boolean {
@@ -89,11 +149,31 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
          */
         private fun findNext(): Node<T>? {
             /**
-             * labor intensity : ???
-             * resource intensity : ???
+             * time complexity : O(N*logN)
+             * auxiliary space : O(N*logN)
              */
-            TODO()
+            if (size == 0) return null
+            val currentNode = current ?: return find(first())
+            if (currentNode.value == last()) return null
+            if (currentNode.right != null) {
+                var successor = currentNode.right ?: throw IllegalArgumentException()
+                while (successor.left != null) {
+                    successor = successor.left ?: return successor
+                }
+                return successor
+            } else {
+                var successor = root ?: throw IllegalArgumentException()
+                var ancestor = root ?: throw IllegalArgumentException()
+                while (ancestor != currentNode) {
+                    if (currentNode.value < ancestor.value) {
+                        successor = ancestor
+                        ancestor = ancestor.left ?: throw IllegalArgumentException()
+                    } else ancestor = ancestor.right ?: throw IllegalArgumentException()
+                }
+                return successor
+            }
         }
+
 
         override fun hasNext(): Boolean = findNext() != null
 
@@ -108,10 +188,14 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
          */
         override fun remove() {
             /**
-             * labor intensity : ???
-             * resource intensity : ???
+             * time complexity : O(N*logN)
+             * auxiliary space : O(N*logN)
              */
-            TODO()
+            val cur = current
+            current = findNext()
+            if (cur != null) {
+                remove(cur.value)
+            } else return
         }
     }
 
@@ -125,8 +209,8 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
      */
     override fun subSet(fromElement: T, toElement: T): SortedSet<T> {
         /**
-         * labor intensity : ???
-         * resource intensity : ???
+         * time complexity : ???
+         * auxiliary space : ???
          */
         TODO()
     }
@@ -137,8 +221,8 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
      */
     override fun headSet(toElement: T): SortedSet<T> {
         /**
-         * labor intensity : ???
-         * resource intensity : ???
+         * time complexity : ???
+         * auxiliary space : ???
          */
         TODO()
     }
@@ -149,8 +233,8 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
      */
     override fun tailSet(fromElement: T): SortedSet<T> {
         /**
-         * labor intensity : ???
-         * resource intensity : ???
+         * time complexity : ???
+         * auxiliary space : ???
          */
         TODO()
     }

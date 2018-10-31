@@ -30,8 +30,8 @@ package lesson5
  */
 fun Graph.findEulerLoop(): List<Graph.Edge> {
     /**
-     * labor intensity : ???
-     * resource intensity : ???
+     * time complexity : ???
+     * auxiliary space : ???
      */
     TODO()
 }
@@ -66,8 +66,8 @@ fun Graph.findEulerLoop(): List<Graph.Edge> {
  */
 fun Graph.minimumSpanningTree(): Graph {
     /**
-     * labor intensity : ???
-     * resource intensity : ???
+     * time complexity : ???
+     * auxiliary space : ???
      */
     TODO()
 }
@@ -98,8 +98,8 @@ fun Graph.minimumSpanningTree(): Graph {
  */
 fun Graph.largestIndependentVertexSet(): Set<Graph.Vertex> {
     /**
-     * labor intensity : ???
-     * resource intensity : ???
+     * time complexity : ???
+     * auxiliary space : ???
      */
     TODO()
 }
@@ -126,8 +126,8 @@ fun Graph.largestIndependentVertexSet(): Set<Graph.Vertex> {
  */
 fun Graph.longestSimplePath(): Path {
     /**
-     * labor intensity : ???
-     * resource intensity : ???
+     * time complexity : ???
+     * auxiliary space : ???
      */
     TODO()
 }
