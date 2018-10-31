@@ -2,6 +2,8 @@
 
 package lesson2
 
+import java.io.File
+
 /**
  * Получение наибольшей прибыли (она же -- поиск максимального подмассива)
  * Простая
@@ -28,10 +30,54 @@ package lesson2
  */
 fun optimizeBuyAndSell(inputName: String): Pair<Int, Int> {
     /**
-     * labor intensity : ???
-     * resource intensity : ???
+     * time complexity : O(N*logN) N is list.size
+     * auxilialery space : O(N) N is list.size
      */
-    TODO()
+
+    val list = File(inputName).readLines().map { it.toInt() }.toIntArray()
+    val deltas = list.zip(list.copyOfRange(1, list.size)) { it, next -> next - it }.toIntArray()
+    val max = maxSubArray(deltas, 0, deltas.size - 1)
+    return max[1] + 1 to max[2] + 2
+}
+
+fun maxSubArray(list: IntArray, left: Int, right: Int): IntArray {
+    if (left == right) return intArrayOf(list[left], left, left)
+    val mid = (left + right) / 2
+    val leftSum = maxSubArray(list, left, mid)
+    val rightSum = maxSubArray(list, mid + 1, right)
+    val crossSum = crossSubArray(list, left, mid, right)
+
+    return if (leftSum[0] >= rightSum[0] && leftSum[0] >= crossSum[0])
+        leftSum
+    else if (rightSum[0] >= leftSum[0] && rightSum[0] >= crossSum[0])
+        rightSum
+    else
+        crossSum
+}
+
+fun crossSubArray(list: IntArray, left: Int, mid: Int, right: Int): IntArray {
+    var leftSum = Int.MIN_VALUE
+    var sum = 0
+    var L = 0
+    for (index in mid downTo left) {
+        sum += list[index]
+        if (sum > leftSum) {
+            L = index
+            leftSum = sum
+        }
+    }
+    var rightSum = Int.MIN_VALUE
+    sum = 0
+    var R = 0
+    for (index in mid + 1..right) {
+        sum += list[index]
+        if (sum > rightSum) {
+            R = index
+            rightSum = sum
+        }
+
+    }
+    return intArrayOf(leftSum + rightSum, L, R)
 }
 
 /**
@@ -83,8 +129,8 @@ fun optimizeBuyAndSell(inputName: String): Pair<Int, Int> {
 fun josephTask(menNumber: Int, choiceInterval: Int): Int = josephus(menNumber, choiceInterval, 1)
 
 /**
- * labor intensity : O(N)? in worst situation (when not first 2 lines in josephus)
- * resource intensity : O(N) N is menNumber
+ * time complexity : O(N)? in worst situation (when not first 2 lines in josephus)
+ * auxiliary space : O(N) N is menNumber
  */
 
 fun josephus(menNumber: Int, choiceInterval: Int, start: Int): Int {
@@ -111,10 +157,38 @@ fun josephus(menNumber: Int, choiceInterval: Int, start: Int): Int {
  */
 fun longestCommonSubstring(first: String, second: String): String {
     /**
-     * labor intensity : ???
-     * resource intensity : ???
+     * time complexity : O(n*m)
+     * auxiliary space : O(n)
      */
-    TODO()
+
+    val m = first.length
+    val n = second.length
+
+    var result = 0
+    var end = 0
+    val len = Array(2) { IntArray(n) }
+
+    var currRow = 0
+
+    for (i in 0 until m) {
+        for (j in 0 until n) {
+            if (i == 0 || j == 0) {
+                len[currRow][j] = 0
+            } else if (first[i - 1] == second[j - 1]) {
+                len[currRow][j] = len[1 - currRow][j - 1] + 1
+                if (len[currRow][j] > result) {
+                    result = len[currRow][j]
+                    end = i - 1
+                }
+            } else {
+                len[currRow][j] = 0
+            }
+        }
+
+        currRow = 1 - currRow
+    }
+    if (result == 0) return ""
+    return first.substring(end - result + 1, end + 1)
 }
 
 /**
@@ -127,12 +201,14 @@ fun longestCommonSubstring(first: String, second: String): String {
  * Справка: простым считается число, которое делится нацело только на 1 и на себя.
  * Единица простым числом не считается.
  */
-/**
- * labor intensity : O(N logN(logN))  N is limit
- * resource intensity : O(N) N is limit
- */
+
 //решето Эратосфена
 fun calcPrimesNumber(limit: Int): Int = if (limit >= 1) isPrime(limit) else 0
+
+/**
+ * time complexity : O(N logN(logN))  N is limit
+ *  auxiliary space : O(N) N is limit
+ */
 
 fun isPrime(limit: Int): Int {
     val prime = BooleanArray(limit + 1) { true }
@@ -180,8 +256,8 @@ fun isPrime(limit: Int): Int {
  */
 fun baldaSearcher(inputName: String, words: Set<String>): Set<String> {
     /**
-     * labor intensity : ???
-     * resource intensity : ???
+     * time complexity : ???
+     * auxiliary space : ???
      */
     TODO()
 }
