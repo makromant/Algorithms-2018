@@ -31,7 +31,7 @@ import java.io.File
 fun optimizeBuyAndSell(inputName: String): Pair<Int, Int> {
     /**
      * time complexity : O(N*logN) N is list.size
-     * auxilialery space : O(N) N is list.size
+     * auxiliary space : O(N) N is list.size
      */
 
     val list = File(inputName).readLines().map { it.toInt() }.toIntArray()

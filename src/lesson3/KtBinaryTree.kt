@@ -80,6 +80,7 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
             //null right child
             setNode(curr, parent, curr.left)
         } else {
+            //this part is a realization of github.com/GlitchyHydra
             //not null both of children
             var minNode = curr.right ?: return false
             var parentMinNode = curr.right ?: return false
