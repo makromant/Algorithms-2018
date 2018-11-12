@@ -1,7 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 
-.gragle
-./gradle
+.gragle/
+gradle/
 .idea/*.xml
 .idea/copyright
 .idea/libraries
@@ -20,3 +20,4 @@ gradlew.bat
 *.iws
 *.zip
 *.log
+
