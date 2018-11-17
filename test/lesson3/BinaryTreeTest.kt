@@ -39,11 +39,11 @@ class BinaryTreeTest {
         testAdd { createKotlinTree() }
     }
 
-    @Test
-    @Tag("Example")
-    fun testAddJava() {
-        testAdd { createJavaTree() }
-    }
+//    @Test
+//    @Tag("Example")
+//    fun testAddJava() {
+//        testAdd { createJavaTree() }
+//    }
 
     private fun <T : Comparable<T>> createJavaTree(): CheckableSortedSet<T> = BinaryTree()
 
@@ -83,11 +83,11 @@ class BinaryTreeTest {
         testRemove { createKotlinTree() }
     }
 
-    @Test
-    @Tag("Normal")
-    fun testRemoveJava() {
-        testRemove { createJavaTree() }
-    }
+//    @Test
+//    @Tag("Normal")
+//    fun testRemoveJava() {
+//        testRemove { createJavaTree() }
+//    }
 
     private fun testIterator(create: () -> CheckableSortedSet<Int>) {
         val random = Random()
@@ -117,11 +117,11 @@ class BinaryTreeTest {
         testIterator { createKotlinTree() }
     }
 
-    @Test
-    @Tag("Normal")
-    fun testIteratorJava() {
-        testIterator { createJavaTree() }
-    }
+//    @Test
+//    @Tag("Normal")
+//    fun testIteratorJava() {
+//        testIterator { createJavaTree() }
+//    }
 
     private fun testIteratorRemove(create: () -> CheckableSortedSet<Int>) {
         val random = Random()
@@ -165,9 +165,9 @@ class BinaryTreeTest {
         testIteratorRemove { createKotlinTree() }
     }
 
-    @Test
-    @Tag("Hard")
-    fun testIteratorRemoveJava() {
-        testIteratorRemove { createJavaTree() }
-    }
+//    @Test
+//    @Tag("Hard")
+//    fun testIteratorRemoveJava() {
+//        testIteratorRemove { createJavaTree() }
+//    }
 }
