@@ -56,8 +56,8 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
      */
     override fun remove(element: T): Boolean {
         /**
-         * time complexity : O(N*logN)
-         * auxiliary space : O(logN)
+         * time complexity : O(logN)
+         * auxiliary space : O(1)
          */
         if (find(element) == null) return false
         var parent = root ?: return false
@@ -149,8 +149,8 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
          */
         private fun findNext(): Node<T>? {
             /**
-             * time complexity : O(N*logN)
-             * auxiliary space : O(logN)
+             * time complexity : O(logN)
+             * auxiliary space : O(1)
              */
             if (size == 0) return null
             val currentNode = current ?: return find(first())
@@ -188,8 +188,8 @@ class KtBinaryTree<T : Comparable<T>> : AbstractMutableSet<T>(), CheckableSorted
          */
         override fun remove() {
             /**
-             * time complexity : O(N*logN)
-             * auxiliary space : O(logN)
+             * time complexity : O(logN)
+             * auxiliary space : O(1)
              */
             val cur = current ?: return
             current = findNext()
