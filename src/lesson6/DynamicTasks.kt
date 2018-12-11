@@ -2,6 +2,8 @@
 
 package lesson6
 
+import java.io.File
+
 /**
  * Наибольшая общая подпоследовательность.
  * Средняя
@@ -30,7 +32,46 @@ fun longestCommonSubSequence(first: String, second: String): String {
  * В примере ответами являются 2, 8, 9, 12 или 2, 5, 9, 12 -- выбираем первую из них.
  */
 fun longestIncreasingSubSequence(list: List<Int>): List<Int> {
-    TODO()
+    /**
+     * time complexity O(n * n/2)
+     * space complexity O(n)
+     */
+    if (list.isEmpty()) return emptyList()
+    val arr = list.toIntArray()
+    val lengthArray = IntArray(list.size) { 1 }
+    val indexArray = IntArray(list.size)
+
+    for (index in 0 until arr.size){
+        lengthArray[index] = 1
+        indexArray[index] = index
+    }
+
+    for (index1 in 1 until arr.size){
+        for (index2 in 0 until index1){
+            if (arr[index1] > arr[index2]){
+                if (lengthArray[index2]+1 > lengthArray[index1]){
+                    lengthArray[index1] = lengthArray[index2] + 1
+                    indexArray[index1] = index2
+                }
+            }
+        }
+    }
+    var maxIndex = 0
+    for (index in 0 until lengthArray.size) {
+        if (lengthArray[index] > lengthArray[maxIndex]) {
+            maxIndex = index
+        }
+    }
+    var index: Int
+    val longestSequence = mutableListOf<Int>()
+    var newIndex = maxIndex
+    do {
+        index = newIndex
+        longestSequence.add(arr[index])
+        newIndex = indexArray[index]
+    } while (index != newIndex)
+
+    return longestSequence.reversed()
 }
 
 /**
@@ -54,7 +95,33 @@ fun longestIncreasingSubSequence(list: List<Int>): List<Int> {
  * Здесь ответ 2 + 3 + 4 + 1 + 2 = 12
  */
 fun shortestPathOnField(inputName: String): Int {
-    TODO()
+    /**
+     * time complexity = O(m * n)
+     * space complexity = O(m * n)
+     */
+    val taskMatrix = File(inputName).readLines()
+            .map { it -> it.split(' ').map { it.toInt() }.toIntArray() }
+            .toTypedArray()
+    val m = taskMatrix.size - 1
+    val n = taskMatrix[0].size - 1
+    val result = Array(m + 1) { IntArray(n + 1) { 0 } }
+    var sum = 0
+
+    for (index in 0..n){
+        sum += taskMatrix[0][index]
+        result[0][index] = sum
+    }
+    sum = 0
+    for (index in 0..m){
+        sum += taskMatrix[index][0]
+        result[index][0] = sum
+    }
+    for (index1 in 1..m)
+        for (index2 in 1..n)
+            result[index1][index2] =
+                    taskMatrix[index1][index2] +
+                    minOf(result[index1 - 1][index2 - 1], result[index1 - 1][index2], result[index1][index2 - 1])
+    return result[m][n]
 }
 
 // Задачу "Максимальное независимое множество вершин в графе без циклов"
