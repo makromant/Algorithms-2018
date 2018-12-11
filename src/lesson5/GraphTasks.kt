@@ -2,6 +2,9 @@
 
 package lesson5
 
+import lesson5.impl.GraphBuilder
+import java.util.*
+
 /**
  * Эйлеров цикл.
  * Средняя
@@ -30,10 +33,43 @@ package lesson5
  */
 fun Graph.findEulerLoop(): List<Graph.Edge> {
     /**
-     * time complexity : ???
-     * auxiliary space : ???
+     * time complexity : O(E + V)
+     * auxiliary space : O(E + V)
+     * E - edges, V - vertices
      */
-    TODO()
+
+    //Count of incident edges should be even
+    //because you need go to this vertex and out from it
+    //equal counts of a time
+    for (vertex in vertices) {
+        if (getNeighbors(vertex).size % 2 == 1)
+            return emptyList()
+    }
+    val stack = Stack<Graph.Vertex>()
+    val solution = ArrayDeque<Graph.Vertex>()
+    stack.push(vertices.first())
+    val edgesList = mutableSetOf<Graph.Edge>()
+    edgesList.addAll(edges)
+    while (!stack.isEmpty()) {
+        val sVertex = stack.lastElement()
+        for (vertex in vertices) {
+            val edge = getConnection(sVertex, vertex)
+            if (edge != null && edgesList.contains(edge)) {
+                stack.push(vertex)
+                edgesList.remove(edge)
+                break
+            }
+        }
+        if (sVertex == stack.last()) {
+            stack.pop()
+            solution.add(sVertex)
+        }
+    }
+    val eulerCycle = mutableListOf<Graph.Edge>()
+    for (count in 0 until solution.size - 1){
+        eulerCycle.add(getConnection(solution.poll(), solution.first)!!)
+    }
+    return eulerCycle
 }
 
 /**
@@ -66,10 +102,44 @@ fun Graph.findEulerLoop(): List<Graph.Edge> {
  */
 fun Graph.minimumSpanningTree(): Graph {
     /**
-     * time complexity : ???
-     * auxiliary space : ???
+     * time complexity : O(E + V)
+     * auxiliary space : O(E + V)
+     * E - edges, V - vertices
      */
-    TODO()
+    val start = this.vertices.first()
+    val info = mutableMapOf<Graph.Vertex, VertexInfo>()
+    for (vertex in this.vertices) {
+        info[vertex] = VertexInfo(vertex, Int.MAX_VALUE, null)
+    }
+    val startInfo = VertexInfo(start, 0, null)
+    val queue = PriorityQueue<VertexInfo>()
+    queue.add(startInfo)
+    info[start] = startInfo
+    while (queue.isNotEmpty()) {
+        val currentInfo = queue.poll()
+        val currentVertex = currentInfo.vertex
+        for (vertex in this.getNeighbors(currentVertex)) {
+            val weight = this.getConnection(currentVertex, vertex)?.weight
+            if (weight != null) {
+                val newDistance = info[currentVertex]!!.distance + weight
+                if (info[vertex]!!.distance > newDistance) {
+                    val newInfo = VertexInfo(vertex, newDistance, currentVertex)
+                    queue.add(newInfo)
+                    info[vertex] = newInfo
+                }
+            }
+        }
+    }
+    var index = 1
+    return GraphBuilder().apply {
+        info.map {
+            if (index > 1) {
+                addVertex("${it.value.vertex}")
+                addConnection(it.value.prev!!, it.key)
+            }
+            index++
+        }
+    }.build()
 }
 
 /**
